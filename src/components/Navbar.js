@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Menu } from 'semantic-ui-react';
 
-function Navbar({ account }) {
-  const [activeItem, setActiveItem] = useState(null);
-  
+function Navbar({ account, activeItem, setActiveItem }) {  
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
   return (

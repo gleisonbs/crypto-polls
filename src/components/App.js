@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Menu } from 'semantic-ui-react';
 import Web3 from 'web3'
-import Voting from '../abis/Voting.json';
+import CryptoPolls from '../abis/CryptoPolls.json';
 import Navbar from './Navbar';
+import Polls from './Polls';
 import './App.css';
 
 
 function App() {
+  const [activeItem, setActiveItem] = useState(null);
   const [account, setAccount] = useState(null);
+  const [cryptoPolls, setCryptoPolls] = useState(null);
+
   
   useEffect(() => {
     loadWeb3()
@@ -36,11 +39,22 @@ function App() {
     if (accounts.length > 0) {
       setAccount(accounts[0]);
     }
+
+    const networkId = await web3.eth.net.getId();
+    const networkData = CryptoPolls.networks[networkId];
+    if (networkData) {
+      const abi = CryptoPolls.abi;
+      const address = networkData.address;
+      
+      const _cryptoPolls = new web3.eth.Contract(abi, address);
+      setCryptoPolls(_cryptoPolls);
+    }
   }
   
   return (
     <div className="App">
-      <Navbar account={account}/>
+      <Navbar account={account} activeItem={activeItem} setActiveItem={setActiveItem}/>
+      { activeItem === 'polls' && cryptoPolls ? <Polls cryptoPolls={cryptoPolls}/> : null }
     </div>
   );
 }
