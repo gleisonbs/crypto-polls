@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import { Menu } from 'semantic-ui-react';
+import React from 'react';
+import { Menu, Segment } from 'semantic-ui-react';
 
 function Navbar({ account, activeItem, setActiveItem }) {  
   const handleItemClick = (e, { name }) => setActiveItem(name);
-
   return (
-      <Menu inverted size='large'>
+    <>
+      <Menu secondary size='large'>
         <Menu.Menu
           name='logo'
         >
-          CRYPTOPOLLS
+          <Segment inverted style={{ borderRadius: 0 }}>
+            CRYPTOPOLLS
+          </Segment>
         </Menu.Menu>
 
         <Menu.Item
@@ -28,12 +30,16 @@ function Navbar({ account, activeItem, setActiveItem }) {
           New
         </Menu.Item>
 
+
         <Menu.Menu
           position='right'
         >
-          {account}
+          <Segment inverted style={{ borderRadius: 0 }}>
+            {account}
+          </Segment>
         </Menu.Menu>
       </Menu>
+      </>
   );
 }
 
