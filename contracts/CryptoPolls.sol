@@ -1,39 +1,32 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.8.0;
 
 contract CryptoPolls {
-    string public name = "CryptoPolls";
-
     uint256 public totalPolls = 0;
+    mapping(uint256 => address) public pollToOwner;
     mapping(uint256 => Poll) public polls;
-    mapping(uint256 => uint256[]) public votes;
-    mapping(uint256 => string[]) public options;
+    mapping(uint256 => string[]) pollOptions;
+    mapping(uint256 => uint256[]) pollVotes;
 
+    //TODO: REDUCE UINT SIZE
     struct Poll {
-        string title;
+        uint256 id;
+        uint256 voteCount;
+        uint256 creationDate;
+        uint256 finishDate;
         address author;
+        string title;
     }
 
-    event PollCreated(string title, address author);
-
-    constructor() public {
+    function createPoll(string memory _title) public {
         totalPolls++;
-        polls[totalPolls] = Poll("Poll 1", address(0));
-
-        options[totalPolls].push("Opt 1");
-        options[totalPolls].push("Opt 2");
-        options[totalPolls].push("Opt 3");
-        options[totalPolls].push("Opt 4");
-
-        votes[totalPolls].push(0);
-        votes[totalPolls].push(0);
-
-        totalPolls++;
-        polls[totalPolls] = Poll("Poll 2", address(0));
-
-        options[totalPolls].push("Opt 1");
-        options[totalPolls].push("Opt 2");
-
-        votes[totalPolls].push(0);
-        votes[totalPolls].push(0);
+        pollToOwner[totalPolls] = msg.sender;
+        polls[totalPolls] = Poll(
+            totalPolls,
+            0,
+            block.timestamp,
+            block.timestamp,
+            msg.sender,
+            _title
+        );
     }
 }
