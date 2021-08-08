@@ -55,7 +55,7 @@ function App() {
   return (
     <div className="App">
       <Navbar account={account} activeItem={activeItem} setActiveItem={setActiveItem}/>
-      { activeItem === 'polls' && cryptoPolls ? <Polls cryptoPolls={cryptoPolls}/> : null }
+      { activeItem === 'polls' && cryptoPolls ? <Polls cryptoPolls={cryptoPolls} account={account} /> : null }
       { activeItem === 'new' && cryptoPolls ? <CreatePoll cryptoPolls={cryptoPolls} account={account} /> : null }
     </div>
   );
