@@ -4,29 +4,43 @@ contract CryptoPolls {
     uint256 public totalPolls = 0;
     mapping(uint256 => address) public pollToOwner;
     mapping(uint256 => Poll) public polls;
-    mapping(uint256 => string[]) pollOptions;
-    mapping(uint256 => uint256[]) pollVotes;
+    mapping(uint256 => string[]) public pollOptions;
+    mapping(uint256 => uint256[]) public pollVotes;
 
     //TODO: REDUCE UINT SIZE
     struct Poll {
         uint256 id;
-        uint256 voteCount;
         uint256 creationDate;
         uint256 finishDate;
+        uint8 totalOptions;
         address author;
         string title;
     }
 
-    function createPoll(string memory _title) public {
+    function getPollOptions(uint256 _pollId)
+        public
+        view
+        returns (string[] memory)
+    {
+        return pollOptions[_pollId];
+    }
+
+    function createPoll(
+        string memory _title,
+        uint8 totalOptions,
+        string[] memory _options
+    ) public {
         totalPolls++;
         pollToOwner[totalPolls] = msg.sender;
         polls[totalPolls] = Poll(
             totalPolls,
-            0,
             block.timestamp,
             block.timestamp,
+            totalOptions,
             msg.sender,
             _title
         );
+
+        pollOptions[totalPolls] = _options;
     }
 }
