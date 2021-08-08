@@ -8,7 +8,7 @@ import './App.css';
 
 
 function App() {
-  const [activeItem, setActiveItem] = useState(null);
+  const [activeItem, setActiveItem] = useState("polls");
   const [account, setAccount] = useState(null);
   const [cryptoPolls, setCryptoPolls] = useState(null);
 
