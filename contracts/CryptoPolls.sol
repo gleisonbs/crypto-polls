@@ -59,4 +59,8 @@ contract CryptoPolls {
             _title
         );
     }
+
+    function vote(uint256 _pollId, uint256 _optionId) public {
+        pollVotes[_pollId][_optionId]++;
+    }
 }
