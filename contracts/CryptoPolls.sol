@@ -17,6 +17,14 @@ contract CryptoPolls {
         string title;
     }
 
+    event PollCreated(
+        uint256 id,
+        uint256 creationDate,
+        uint256 finishDate,
+        address author,
+        string title
+    );
+
     function getPollOptions(uint256 _pollId)
         public
         view
@@ -42,5 +50,13 @@ contract CryptoPolls {
         );
 
         pollOptions[totalPolls] = _options;
+
+        emit PollCreated(
+            totalPolls,
+            block.timestamp,
+            block.timestamp,
+            msg.sender,
+            _title
+        );
     }
 }
