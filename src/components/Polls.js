@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Segment } from 'semantic-ui-react'
 
 const Polls = ({ cryptoPolls }) => {
   const [allPolls, setAllPolls] = useState([]);
@@ -21,13 +22,15 @@ const Polls = ({ cryptoPolls }) => {
   }
 
   return (
-    <div className="Polls">
+    <div style={{ width: "70%", margin: "auto", display: "flex", direction: "row", flexWrap: "wrap" }} className="Polls">
       {allPolls.map(p => <div key={p.title}>
-        <p>{p.title} - {p.author}</p>
-        {p.options.map(o => <p>
-          {o}
-        </p>)}
-      </div>
+          <Segment style={{ margin: "10px", width: "600px", height: "300px" }}>
+            <p>{p.title} - {p.author}</p>
+              {p.options.map(o => <p>
+              {o}
+            </p>)}
+          </Segment>
+        </div>
       )}
     </div>
   );
