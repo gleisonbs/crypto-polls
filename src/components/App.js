@@ -3,6 +3,7 @@ import Web3 from 'web3'
 import CryptoPolls from '../abis/CryptoPolls.json';
 import Navbar from './Navbar';
 import Polls from './Polls';
+import CreatePoll from './CreatePoll';
 import './App.css';
 
 
@@ -55,6 +56,7 @@ function App() {
     <div className="App">
       <Navbar account={account} activeItem={activeItem} setActiveItem={setActiveItem}/>
       { activeItem === 'polls' && cryptoPolls ? <Polls cryptoPolls={cryptoPolls}/> : null }
+      { activeItem === 'new' && cryptoPolls ? <CreatePoll cryptoPolls={cryptoPolls} account={account} /> : null }
     </div>
   );
 }
