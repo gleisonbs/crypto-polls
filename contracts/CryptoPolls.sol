@@ -33,6 +33,14 @@ contract CryptoPolls {
         return pollOptions[_pollId];
     }
 
+    function getPollVotes(uint256 _pollId)
+        public
+        view
+        returns (uint256[] memory)
+    {
+        return pollVotes[_pollId];
+    }
+
     function createPoll(
         string memory _title,
         uint8 totalOptions,
@@ -50,6 +58,7 @@ contract CryptoPolls {
         );
 
         pollOptions[totalPolls] = _options;
+        pollVotes[totalPolls] = new uint256[](totalOptions);
 
         emit PollCreated(
             totalPolls,
