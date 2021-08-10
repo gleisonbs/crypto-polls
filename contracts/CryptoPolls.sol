@@ -11,7 +11,7 @@ contract CryptoPolls {
     struct Poll {
         uint256 id;
         uint256 creationDate;
-        uint256 finishDate;
+        uint256 closeDate;
         uint8 totalOptions;
         address author;
         string title;
@@ -20,7 +20,7 @@ contract CryptoPolls {
     event PollCreated(
         uint256 id,
         uint256 creationDate,
-        uint256 finishDate,
+        uint256 closeDate,
         address author,
         string title
     );
@@ -44,14 +44,15 @@ contract CryptoPolls {
     function createPoll(
         string memory _title,
         uint8 totalOptions,
-        string[] memory _options
+        string[] memory _options,
+        uint256 closeDate
     ) public {
         totalPolls++;
         pollToOwner[totalPolls] = msg.sender;
         polls[totalPolls] = Poll(
             totalPolls,
             block.timestamp,
-            block.timestamp,
+            closeDate,
             totalOptions,
             msg.sender,
             _title
@@ -63,13 +64,17 @@ contract CryptoPolls {
         emit PollCreated(
             totalPolls,
             block.timestamp,
-            block.timestamp,
+            closeDate,
             msg.sender,
             _title
         );
     }
 
     function vote(uint256 _pollId, uint256 _optionId) public {
+        require(
+            block.timestamp < polls[_pollId].closeDate,
+            "Can't vote on a closed poll."
+        );
         pollVotes[_pollId][_optionId]++;
     }
 }
