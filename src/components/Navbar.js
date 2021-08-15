@@ -10,7 +10,12 @@ function Navbar({ account, activeItem, setActiveItem }) {
           name='logo'
         >
           <Segment inverted style={{ borderRadius: 0 }}>
-            CRYPTOPOLLS
+            <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+              <img src="https://public-assets-f8h.s3.amazonaws.com/clipart3278228-removebg-preview.png" alt="Logo" width="15" height="15" />
+              <div style={{ padding: "0 0 0 8px" }}>
+                CRYPTOPOLLS
+              </div>
+            </div>
           </Segment>
         </Menu.Menu>
 
