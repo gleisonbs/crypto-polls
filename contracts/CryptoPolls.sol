@@ -2,7 +2,8 @@ pragma solidity ^0.8.0;
 
 contract CryptoPolls {
     uint256 public totalPolls = 0;
-    mapping(uint256 => address) public pollToOwner;
+    mapping(uint256 => address) public pollToAuthor;
+    mapping(address => uint256[]) public voterToPolls;
     mapping(uint256 => Poll) public polls;
     mapping(uint256 => string[]) public pollOptions;
     mapping(uint256 => uint256[]) public pollVotes;
@@ -48,7 +49,7 @@ contract CryptoPolls {
         uint256 closeDate
     ) public {
         totalPolls++;
-        pollToOwner[totalPolls] = msg.sender;
+        pollToAuthor[totalPolls] = msg.sender;
         polls[totalPolls] = Poll(
             totalPolls,
             block.timestamp,
